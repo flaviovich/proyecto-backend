@@ -10,6 +10,7 @@
 > FLASK_RUN_PORT=5000  
 > FLASK_DEBUG=true  
 > DB_URI=mysql://root:tupassword@localhost/basedatos
+
 ## Creación de entorno virtual con venv
 - Para crear el entorno virtual se usa el comando:
 ```bash
