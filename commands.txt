@@ -1,0 +1,16 @@
+pip install flask
+pip install mysqlclient
+pip install python-dotenv
+pip install flask-sqlalchemy
+pip install flask-marshmallow
+pip install marshmallow-sqlalchemy
+pip install flask-migrate
+pip install flask-cors
+pip install flask-jwt-extended
+pip install bcrypt
+flask run
+flask --debug run
+
+flask db init
+flask db migrate -m "Initial migration"
+flask db upgrade

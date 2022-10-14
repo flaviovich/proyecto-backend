@@ -1,0 +1,5 @@
+.env
+entorno_*
+migrations/
+flask.log
+reque*.txt
