@@ -3,7 +3,7 @@ from flask import request
 from app.controllers.marca_controller import MarcaController
 
 @app.route("/marcas", methods=['GET'])
-def listar():  # sourcery skip: inline-immediately-returned-variable
+def listarMarcas():  # sourcery skip: inline-immediately-returned-variable
     marcas = MarcaController().getAll()
     return marcas
 

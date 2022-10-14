@@ -3,7 +3,7 @@ from flask import request
 from app.controllers.celular_controller import CelularController
 
 @app.route("/celulares", methods=['GET'])
-def listar():  # sourcery skip: inline-immediately-returned-variable
+def listarCelulares():  # sourcery skip: inline-immediately-returned-variable
     celulares = CelularController().getAll()
     return celulares
 
