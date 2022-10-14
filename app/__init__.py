@@ -20,6 +20,7 @@ basicConfig(
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI')
+#app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI_REMOTE')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["JWT_SECRET_KEY"] = "c0d1Go"
 

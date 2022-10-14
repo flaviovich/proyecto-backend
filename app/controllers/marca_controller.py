@@ -27,3 +27,19 @@ class MarcaController():
         result = brand_schema.dump(marca)
 
         return result, 201
+    
+    @jwt_required()
+    def update(self, id, json_input):
+        if not json_input:
+            return {"message": "Datos de entrada no proporcionados"}, 400
+            
+        try:
+            data = brand_schema.load(json_input)
+        except ValidationError as err:
+            return err.messages, 422
+        
+        brand = MarcaModel.query.filter_by(marca_id=id).first()
+        brand.nombre = data['nombre']
+        db.session.commit()
+        result = brand_schema.dump(brand)
+        return result, 201

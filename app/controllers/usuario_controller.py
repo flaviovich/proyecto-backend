@@ -64,7 +64,7 @@ class UsuarioController():
             access_token = create_access_token(identity=user.usuario_id)
         except ValidationError as e:
             return {"message": f'{e}'}, 500
-
+        
         if passwordHashedDecoded == user.password:
             return {"access token": access_token}, 200
         return {"message": "Credenciales incorrectas"}, 400 
