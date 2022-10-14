@@ -43,3 +43,11 @@ class MarcaController():
         db.session.commit()
         result = brand_schema.dump(brand)
         return result, 201
+
+    @jwt_required()
+    def delete(self, id):
+        brand = MarcaModel.query.filter_by(marca_id=id).first()
+        db.session.delete(brand)
+        db.session.commit()
+        result = brand_schema.dump(brand)
+        return result, 204

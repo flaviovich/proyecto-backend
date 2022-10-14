@@ -16,4 +16,8 @@ def actualizar(id):
     marca = MarcaController()
     json_input = request.get_json()
     return marca.update(id, json_input)
-    
+
+@app.route("/celular/<int:id>", methods=['DELETE'])
+def eliminar(id):
+    marca = MarcaController()
+    return marca.delete(id)
