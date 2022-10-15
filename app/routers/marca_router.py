@@ -19,7 +19,7 @@ def actualizarMarca(id):
     json_input = request.get_json()
     return marca.update(id, json_input)
 
-@app.route("/celular/<int:id>", methods=['DELETE'])
+@app.route("/marca/<int:id>", methods=['DELETE'])
 def eliminarMarca(id):
     marca = MarcaController()
     return marca.delete(id)
