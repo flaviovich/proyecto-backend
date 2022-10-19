@@ -1,6 +1,6 @@
 from app import db
 from sqlalchemy import (
-    Column, Text, Integer, String, Float, DateTime, func
+    Column, Text, Integer, String, Float, DateTime, Boolean, func
 )
 
 class CelularModel(db.Model):
@@ -14,6 +14,7 @@ class CelularModel(db.Model):
     precio_online = Column(Float(5,2))
     precio_normal = Column(Float(5,2), nullable=False)
     imagen = Column(Text)
+    estado = Column(Boolean, default=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     

@@ -1,13 +1,18 @@
 from app.models.celular_model import CelularModel
-from app.schemas.celular_schema import cell_schema, cells_schema
+from app.schemas.celular_schema import CelularSchema
 from marshmallow import ValidationError
 from app import db
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 class CelularController():
+    def __init__(self):
+        self.cell_schema = CelularSchema()
+        self.cells_schema = CelularSchema(many=True)
+
+    @jwt_required()
     def getAll(self):
         products = CelularModel.query.all()
-        result = cells_schema.dump(products)
+        result = self.cells_schema.dump(products)
         return result, 200
 
     @jwt_required()
@@ -16,14 +21,14 @@ class CelularController():
             return {"message": "Datos de entrada no proporcionados"}, 400
 
         try:
-            data = cell_schema.load(json_input)
+            data = self.cell_schema.load(json_input)
         except ValidationError as err:
             return err.messages, 422
         
         cell = CelularModel(**data)
         db.session.add(cell)
         db.session.commit()
-        result = cell_schema.dump(cell)
+        result = self.cell_schema.dump(cell)
         return result, 201
 
     @jwt_required()
@@ -32,7 +37,7 @@ class CelularController():
             return {"message": "Datos de entrada no proporcionados"}, 400
             
         try:
-            data = cell_schema.load(json_input)
+            data = self.cell_schema.load(json_input)
         except ValidationError as err:
             return err.messages, 422
         
@@ -45,23 +50,34 @@ class CelularController():
         cell.precio_normal = data['precio_normal']
         cell.imagen = data['imagen']
         db.session.commit()
-        result = cell_schema.dump(cell)
+        result = self.cell_schema.dump(cell)
         return result, 201
 
     @jwt_required()
     def delete(self, id):
         cell = CelularModel.query.filter_by(celular_id=id).first()
-        db.session.delete(cell)
+        cell.estado = False
         db.session.commit()
-        result = cell_schema.dump(cell)
-        return result, 204
+        result = self.cell_schema.dump(cell)
+        return result, 201
 
-    def getById(self, celular_id):
-        cell = CelularModel.query.filter_by(celular_id=celular_id).first()
-        result = cell_schema.dump(cell)
+    def getTodos(self):
+        cells = CelularModel.query.filter_by(estado=True).all()
+        result = self.cells_schema.dump(cells)
+        return result, 200
+
+    def getById(self, id):
+        cell = CelularModel.query.filter_by(celular_id=id).first()
+        print(cell)
+        result = self.cell_schema.dump(cell)
+        return result, 200
+
+    def getByName(self, nombre):
+        cells = CelularModel.query.filter(CelularModel.descripcion.like(f"%{nombre}%")).all()
+        result = self.cells_schema.dump(cells)
         return result, 200
 
     def getByMarca(self, marca_id):
         cells = CelularModel.query.filter_by(marca_id=marca_id).all()
-        result = cells_schema.dump(cells)
+        result = self.cells_schema.dump(cells)
         return result, 200

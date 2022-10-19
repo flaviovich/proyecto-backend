@@ -18,10 +18,13 @@
 ```
 - Para activar el entorno virtual se usa el comando ("bin" en MAC y "Scripts" en Windows):
 ```bash
-   $ source venv/bin/activate
+   $ source <nombre_entorno>/bin/activate
 ```
 ```bash
-   $ source venv/Scripts/activate
+   $ source <nombre_entorno>/Scripts/activate
+```
+```bash
+   <nombre_entorno>\Scripts\activate
 ```
 - Para desactivar el entorno virtual se usa el comando:
 ```bash
@@ -44,3 +47,5 @@
 ```bash
    $ flask run
 ```
+## Uso de colección en Postman
+- Puede importar el archivo Proyecto Backend.postman_collection.json en Postman para realizar las pruebas correspondientes.
