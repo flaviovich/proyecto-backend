@@ -1,5 +1,5 @@
+__pycache__/
 .env
 entorno_*
-migrations/
-flask.log
 reque*.txt
+flask.log
