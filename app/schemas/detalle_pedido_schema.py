@@ -13,4 +13,3 @@ class DetallePedidoSchema(Schema):
     updated_at = fields.DateTime()
 
 order_detail_schema = DetallePedidoSchema()
-# order_details_schema = DetallePedidoSchema(many=True)

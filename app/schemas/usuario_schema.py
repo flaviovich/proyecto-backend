@@ -9,14 +9,9 @@ class UsuarioSchema(Schema):
     email = fields.String(required=True, validate=campo_necesario)
     password = fields.String(required=True, validate=campo_necesario)
     estado = fields.Boolean(dump_only=True)
-    created_at = fields.DateTime()
-    updated_at = fields.DateTime()
-
-user_schema = UsuarioSchema()
-users_schema = UsuarioSchema(many=True)
+    created_at = fields.DateTime(load_only=True)
+    updated_at = fields.DateTime(load_only=True)
 
 class AutenticacionSchema(Schema):
     password =  fields.String(required=True, validate=campo_necesario)
     email = fields.String(required=True, validate=campo_necesario)
-
-auth_schema = AutenticacionSchema()

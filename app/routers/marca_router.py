@@ -2,24 +2,24 @@ from app import app
 from flask import request
 from app.controllers.marca_controller import MarcaController
 
-@app.route("/marcas", methods=['GET'])
-def listarMarcas():  # sourcery skip: inline-immediately-returned-variable
-    marcas = MarcaController().getAll()
-    return marcas
+@app.route("/admin/marcas", methods=['GET'])
+def listarMarcas():
+    marcas = MarcaController()
+    return marcas.getAll()
 
-@app.route("/marca", methods=['POST'])
-def crearMarca():  # sourcery skip: inline-immediately-returned-variable
+@app.route("/admin/marcas", methods=['POST'])
+def crearMarca():
     json_input = request.get_json()
-    result = MarcaController().post(json_input)
-    return result
+    result = MarcaController()
+    return result.post(json_input)
 
-@app.route("/marca/<int:id>", methods=['PUT'])
+@app.route("/admin/marcas/<int:id>", methods=['PUT'])
 def actualizarMarca(id):
     marca = MarcaController()
     json_input = request.get_json()
     return marca.update(id, json_input)
 
-@app.route("/marca/<int:id>", methods=['DELETE'])
+@app.route("/admin/marcas/<int:id>", methods=['DELETE'])
 def eliminarMarca(id):
     marca = MarcaController()
     return marca.delete(id)

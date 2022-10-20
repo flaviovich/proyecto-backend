@@ -16,6 +16,3 @@ class CelularSchema(Schema):
     estado = fields.Boolean(dump_only=True)
     created_at = fields.DateTime()
     updated_at = fields.DateTime()
-
-#cell_schema = CelularSchema()
-#cells_schema = CelularSchema(many=True)
