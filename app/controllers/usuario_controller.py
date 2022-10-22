@@ -119,6 +119,9 @@ class UsuarioController():
             return {"access token": access_token}, 200
         return {"message": "Credenciales incorrectas"}, 400 
 
+    def reset(self, json_input):
+        pass
+
     def __searchUser(self, email):
         # sourcery skip: inline-immediately-returned-variable
         usuario = UsuarioModel.query.filter_by(email=email).first()

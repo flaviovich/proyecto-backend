@@ -7,7 +7,7 @@ class UsuarioSchema(Schema):
     apellidos = fields.String(required=True, validate=campo_necesario)
     direccion = fields.String()
     email = fields.String(required=True, validate=campo_necesario)
-    password = fields.String(required=True, validate=campo_necesario)
+    password = fields.String(required=True, load_only=True, validate=campo_necesario)
     estado = fields.Boolean(dump_only=True)
     created_at = fields.DateTime(load_only=True)
     updated_at = fields.DateTime(load_only=True)

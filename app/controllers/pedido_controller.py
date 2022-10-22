@@ -11,7 +11,8 @@ class PedidoController():
 
     @jwt_required()
     def getAll(self):
-        orders = PedidoModel.query.all()
+        usuario_id = get_jwt_identity()
+        orders = PedidoModel.query.filter_by(usuario_id=usuario_id).all()
         result = self.orders_schema.dump(orders)
         return result, 200
 
@@ -29,18 +30,41 @@ class PedidoController():
         db.session.commit()
         result = self.order_schema.dump(order)
         return result, 201
-    
+
     @jwt_required()
-    def getById(self, pedido_id):
-        order = PedidoModel.query.filter_by(pedido_id=pedido_id).first()
+    def update(self, id, json_input):
+        if not json_input:
+            return {"message": "Datos de entrada no proporcionados"}, 400
+            
+        try:
+            data = self.order_schema.load(json_input)
+        except ValidationError as err:
+            return err.messages, 422
+        
+        usuario_id = get_jwt_identity()
+        order = PedidoModel.query.filter_by(usuario_id=usuario_id, pedido_id=id).first()
+        order.monto_total = data['monto_total']
+        db.session.commit()
+        result = self.order_schema.dump(order)
+        return result, 201
+
+    @jwt_required()
+    def delete(self, id):
+        usuario_id = get_jwt_identity()
+        order = PedidoModel.query.filter_by(usuario_id=usuario_id, pedido_id=id).first()
+        order.estado = False
+        db.session.commit()
+        result = self.order_schema.dump(order)
+        return result, 201
+
+    @jwt_required()
+    def getById(self, id):
+        order = PedidoModel.query.filter_by(pedido_id=id).first()
         result = self.order_schema.dump(order)
         return result, 200
 
     @jwt_required()
     def getByEstado(self, categoria_id):
-        user_id = get_jwt_identity()
-        if user_id == 2:
             orders = PedidoModel.query.filter_by(categoriaId=categoria_id).all()
             result = self.order_schema.dump(orders)
             return result, 200
-        return {"message": "El usuario no tiene permisos."}, 403

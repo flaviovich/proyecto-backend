@@ -8,5 +8,5 @@ class PedidoSchema(Schema):
     usuario = fields.Nested(UsuarioSchema)
     monto_total = fields.Float(required=True, validate=campo_necesario)
     estado = fields.Boolean(dump_only=True)
-    created_at = fields.DateTime()
-    updated_at = fields.DateTime()
+    created_at = fields.DateTime(load_only=True)
+    updated_at = fields.DateTime(load_only=True)

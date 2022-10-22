@@ -29,3 +29,9 @@ def iniciarSesion():
     json_input = request.get_json()
     usuario = UsuarioController()
     return usuario.signIn(json_input)
+    
+@app.route('/reset', methods=['PUT'])
+def resetPassword():
+    json_input = request.get_json()
+    usuario = UsuarioController()
+    return usuario.reset(json_input)
